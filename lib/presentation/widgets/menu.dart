@@ -9,14 +9,15 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsBloc, ProductsState>(
+      bloc: context.watch<ProductsBloc>(),
       builder: (ctx, state) {
         if (state is ProductsError) {
           return Center(child: Text('Произошла ошибка. Повторите позже'));
         }
         if (state is ProductsSuccess) {
-          if (state.products.isEmpty)
+          if (state.products.isEmpty) {
             return Center(child: Text('Нет данных...'));
-          else {
+          } else {
             return ListView(
               children: [
                 CategoriesList(),

@@ -1,7 +1,15 @@
-enum Categories { coupons, newProducts, rolls, burgers, coldDrinks, fries}
+enum Categories {
+  coupons,
+  newProducts,
+  rolls,
+  burgers,
+  coldDrinks,
+  fries,
+  allProducts,
+}
 
 extension categoriesToString on Categories {
-  String get getCategory {
+  String get categoryToString {
     switch (this) {
       case Categories.coupons:
         return 'Купоны';
@@ -15,6 +23,8 @@ extension categoriesToString on Categories {
         return 'Холодные напитки';
       case Categories.fries:
         return 'Картофель';
+      case Categories.allProducts:
+        return "Все товары";
     }
   }
 }
@@ -23,7 +33,7 @@ class ProductModel {
   final String productName;
   final String productPrice;
   final String productImagePath;
-  final Categories productCategory;
+  final List<String> productCategory;
 
   ProductModel(
       {required this.productName,

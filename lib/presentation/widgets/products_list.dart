@@ -8,21 +8,22 @@ class ProductsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsBloc, ProductsState>(
+      bloc: context.watch<ProductsBloc>(),
       builder: (ctx, state) {
-        return Expanded(
-          child: GridView.count(
-            physics: NeverScrollableScrollPhysics(),
-            childAspectRatio: 1 / 1.5,
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            children: [
-              ...state.products.map((e) => Product(
-                    productName: e.productName,
-                    productPrice: e.productPrice,
-                    productImagePath: e.productImagePath,
-                  )),
-            ],
-          ),
+        return GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          childAspectRatio: 1 / 1.5,
+          shrinkWrap: true,
+          crossAxisCount: 2,
+          children: [
+            ...state.products.map(
+              (e) => Product(
+                productName: e.productName,
+                productPrice: e.productPrice,
+                productImagePath: e.productImagePath,
+              ),
+            ),
+          ],
         );
       },
     );

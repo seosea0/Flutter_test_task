@@ -13,6 +13,7 @@ class Category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsBloc, ProductsState>(
+      bloc: context.watch<ProductsBloc>(),
       builder: (ctx, state) {
         return GestureDetector(
           onTap: () => context.read<ProductsBloc>()

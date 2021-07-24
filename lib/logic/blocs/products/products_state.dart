@@ -3,8 +3,9 @@ part of 'products_bloc.dart';
 @immutable
 abstract class ProductsState {
   final List<ProductModel> products;
+  final List<String> categories;
 
-  ProductsState({this.products = const <ProductModel> []});
+  ProductsState({this.products = const <ProductModel> [], this.categories = const <String> []});
 }
 
 class ProductsInitial extends ProductsState {
@@ -17,7 +18,9 @@ class ProductsLoading extends ProductsState {
 
 class ProductsSuccess extends ProductsState {
   final List<ProductModel> products;
-  ProductsSuccess(this.products) : super(products: products);
+  final List<String> categories;
+
+  ProductsSuccess(this.products, this.categories) : super(products: products, categories: categories);
 }
 
 class ProductsError extends ProductsState {

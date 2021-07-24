@@ -14,7 +14,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ProductsBloc() : super(ProductsInitial());
 
   final Repository repo = Repository();
-  String currentCategory = Categories.coupons.getCategory;
+  String currentCategory = Categories.allProducts.categoryToString;
 
   @override
   Stream<ProductsState> mapEventToState(
@@ -24,34 +24,23 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       yield* _mapFetchProductsEventToState();
     }
     if (event is FilterProductsByCategoryEvent) {
-      yield* mapFilteredProductsByCategory(event.category);
+      yield* _mapFilteredProductsByCategory(event.category);
     }
   }
 
   Stream<ProductsState> _mapFetchProductsEventToState() async* {
     yield ProductsLoading();
     try {
-      yield ProductsSuccess(repo.getProductsList
-          .where((element) =>
-              element.productCategory.getCategory == currentCategory)
-          .toList());
+      yield ProductsSuccess(repo.getProductsList, repo.getCategoriesList);
     } catch (error) {
       yield ProductsError(error.toString());
     }
   }
 
-  Stream<ProductsState> mapFilteredProductsByCategory(String category) async* {
+  Stream<ProductsState> _mapFilteredProductsByCategory(String category) async* {
     if (currentCategory != category) currentCategory = category;
-    final filteredProducts = repo.getProductsList.where(
-            (element) => element.productCategory.getCategory == currentCategory)
-        .toList();
+    final filteredProducts = repo.getProductsList.where((e) => e.productCategory.contains(category)).toList();
 
-    yield ProductsSuccess(filteredProducts);
-  }
-
-  List getCategoriesList() {
-    final categories =
-        repo.getProductsList.map((e) => e.productCategory).toSet();
-    return categories.map((e) => e.getCategory).toList();
+    yield ProductsSuccess(filteredProducts, repo.getCategoriesList);
   }
 }

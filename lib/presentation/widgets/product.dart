@@ -5,10 +5,11 @@ class Product extends StatelessWidget {
   final String productPrice;
   final String productImagePath;
 
-  Product(
-      {required this.productName,
-      required this.productPrice,
-      required this.productImagePath});
+  Product({
+    required this.productName,
+    required this.productPrice,
+    required this.productImagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
