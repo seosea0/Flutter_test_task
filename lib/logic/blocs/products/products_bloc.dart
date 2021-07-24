@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_test_task/data/models/product_model.dart';
+import 'package:flutter_test_task/domain/models/product_model.dart';
 import 'package:meta/meta.dart';
 
-import './../../../data/models/product_model.dart';
-import './../../../data/repository/repository.dart';
+import './../../../domain/models/product_model.dart';
+import './../../../domain/repository/repository.dart';
 
 part 'products_event.dart';
 part 'products_state.dart';
